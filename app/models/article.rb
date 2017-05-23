@@ -41,4 +41,11 @@ class Article < ApplicationRecord
       all
     end
   end
+
+  def self.recipe_count(params)
+    agent = Mechanize.new
+    page = agent.get"http://www.10000recipe.com/recipe/list.html?q=#{params}"
+    p_num = page.search("div.m_list_tit b").map(&:text)
+    return p_num
+  end
 end
